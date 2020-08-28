@@ -1,37 +1,41 @@
 import React, { useContext } from "react";
 import "../App.css";
-import Provider from "../Provider";
-import { reducer, ScoresContext } from "../reducer/scores";
+import { ScoresContext } from "../reducer/scores";
 
 const Resultat = () => {
-  const [state, dispatch] = useContext(ScoresContext);
-  const { scores, score, finish, message, tableauQCM } = state;
+  const [state] = useContext(ScoresContext);
+  const { scores, score, tableauQCM } = state;
 
-  const questionsArray = Object.entries(tableauQCM); //transforme l'objet en tableau pour le parcourir plus facilement
+  //transforme l'objet des questions en array pour le parcourir plus facilement
+  const questionsArray = Object.entries(tableauQCM);
+  //   on récupère le nombre de question pour aficher le score (ex: 5/5)
   const lengthQuestions = questionsArray.length;
 
   return (
     <div className='App'>
       <p>
-          {score == lengthQuestions && 'BRAVO!! C\'est un sans faute '}
+        {/* si le score est égale au nombre de questions alors on félicite l'utilisateur */}
+        {score == lengthQuestions && "BRAVO!! C'est un sans faute "}
+        {/* et on donne le score dans tous les cas*/}
         votre score est de {score} / {lengthQuestions}
       </p>
-
+        {/* on boucle sur les questions */}
       {questionsArray.map((question, i) => (
         <React.Fragment key={i}>
+            {/* si le score de la question i est égale à 1 alors on affiche "BRAVO.." */}
           {scores[i] == 1 ? (
             <div className='reponsejuste'>
               <p>{question[1].title}</p>
               <p>
-                Bravo la reponse était bien : <br/>"
+                Bravo la reponse était bien : <br />"
                 {question[1].choices[question[1].response]}"
               </p>
             </div>
-          ) : (
+          ) : (     //sinon on affiche "DOMMAGE.."
             <div className='reponsefausse'>
               <p>{question[1].title}</p>
               <p>
-                Dommage la bonne réponse était : <br/>"
+                Dommage la bonne réponse était : <br />"
                 {question[1].choices[question[1].response]}".
                 <br /> {question[1].feedback}
               </p>
@@ -39,7 +43,6 @@ const Resultat = () => {
           )}
         </React.Fragment>
       ))}
-      {/* <input type='text' name='score' value={score} onChange={handleChange} /> */}
     </div>
   );
 };

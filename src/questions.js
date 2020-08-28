@@ -35,7 +35,7 @@ const questions = {
         title : "question test radio (la reponse est reponse 2) ?", 
         choices : ['reponse 1', 'reponse 2', 'reponse 3'], 
         response : 1, 
-        type: "select" ,
+        type: "radio" ,
         name : "nouvelle question",
         feedback : 'La reponse était 5'
     }

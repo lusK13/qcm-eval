@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react';
+import React from 'react';
 
 import {initialState, reducer, ScoresContext} from './reducer/scores.js'
 import questions from "./questions";
